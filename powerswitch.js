@@ -6,6 +6,7 @@ function PowerSwitch(GPIO_PIN) {
 
   // Initialize the GPIO pin
   var self = this; // Scope closure
+  gpio.setMode(gpio.MODE_RPI); // Use the Raspberry Pi wiring schema
   gpio.setup(this._GPIO_PIN, gpio.DIR_OUT, function(err) {
     if(err) {
       console.error('PowerSwitch error! Could not configure pin %s for writing: ', self._GPIO_PIN, err);

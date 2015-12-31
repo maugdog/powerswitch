@@ -10,7 +10,7 @@ Node.js package for driving the Adafruit PowerSwitch Tail II. Originally built f
 ## Usage
 
     var ps = require('powerswitch');
-    var GPIO_PIN = 18; // Pin that you wired the PowerSwitch Tail to
+    var GPIO_PIN = 18; // Pin that the PowerSwitch Tail is wired to. Use Raspberry Pi addressing scheme for the pin (NOT SoC/BCM pin schemas)
 
     // Instantiate a PowerSwitch object
     var powerswitch = new ps(GPIO_PIN);
