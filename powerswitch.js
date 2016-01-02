@@ -18,22 +18,20 @@ function PowerSwitch(GPIO_PIN) {
 }
 
 /** Set the power switch to ON */
-PowerSwitch.prototype.setOn = function() {
+PowerSwitch.prototype.setOn = function(callback) {
   this.isOn = true;
   gpio.write(this._GPIO_PIN, true, function(err) {
-      if (err) {
-        throw err;
-      }
+    if(callback) { callback(err); }
+    else if (err) { throw err; }
   });
 };
 
 /** Set the power switch to OFF */
-PowerSwitch.prototype.setOn = function() {
+PowerSwitch.prototype.setOn = function(callback) {
   this.isOn = false;
   gpio.write(this._GPIO_PIN, false, function(err) {
-      if (err) {
-        throw err;
-      }
+    if(callback) { callback(err); }
+    else if (err) { throw err; }
   });
 };
 
