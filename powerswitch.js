@@ -27,7 +27,7 @@ PowerSwitch.prototype.setOn = function(callback) {
 };
 
 /** Set the power switch to OFF */
-PowerSwitch.prototype.setOn = function(callback) {
+PowerSwitch.prototype.setOff = function(callback) {
   this.isOn = false;
   gpio.write(this._GPIO_PIN, false, function(err) {
     if(callback) { callback(err); }
