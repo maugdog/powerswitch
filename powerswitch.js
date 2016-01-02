@@ -1,43 +1,28 @@
-var gpio = require('rpi-gpio');
+var GPIO = require('onoff').Gpio;
 
 function PowerSwitch(GPIO_PIN) {
   this._GPIO_PIN = GPIO_PIN;
   this.isOn = false;
 
   // Initialize the GPIO pin
-  var self = this; // Scope closure
-  gpio.setMode(gpio.MODE_RPI); // Use the Raspberry Pi wiring schema
-  gpio.setup(this._GPIO_PIN, gpio.DIR_OUT, function(err) {
-    if(err) {
-      console.error('PowerSwitch error! Could not configure pin %s for writing: ', self._GPIO_PIN, err);
-    } else {
-      // Make sure that the switch is initialized in the OFF state
-      self.setOff();
-    }
-  });
+  this._powerSwitch = new GPIO(this._GPIO_PIN, 'out');
 }
 
 /** Set the power switch to ON */
-PowerSwitch.prototype.setOn = function(callback) {
+PowerSwitch.prototype.setOn = function() {
+  this._powerSwitch.writeSync(1);
   this.isOn = true;
-  gpio.write(this._GPIO_PIN, true, function(err) {
-    if(callback) { callback(err); }
-    else if (err) { throw err; }
-  });
 };
 
 /** Set the power switch to OFF */
-PowerSwitch.prototype.setOff = function(callback) {
+PowerSwitch.prototype.setOff = function() {
+  this._powerSwitch.writeSync(0);
   this.isOn = false;
-  gpio.write(this._GPIO_PIN, false, function(err) {
-    if(callback) { callback(err); }
-    else if (err) { throw err; }
-  });
 };
 
 /** Tear down all of the configured pins */
 PowerSwitch.prototype.destroy = function() {
-  gpio.destroy(function() {});
+  this._powerSwitch.unexport();
 };
 
 module.exports = PowerSwitch;

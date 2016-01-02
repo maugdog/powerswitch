@@ -18,7 +18,7 @@
   "author": "Max Montgelas",
   "license": "MIT",
   "dependencies": {
-    "rpi-gpio": "^0.7.0"
+    "onoff": "^1.0.3"
   },
   "bugs": {
     "url": "https://github.com/maugdog/powerswitch/issues"
